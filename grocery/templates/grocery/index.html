@@ -1,0 +1,34 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Grocery Bud - Django</title>
+    <link rel="stylesheet" href="{% static 'grocery/css/global.css' %}" />
+    <link rel="stylesheet" href="{% static 'grocery/css/single-item.css' %}" />
+    <link rel="stylesheet" href="{% static 'grocery/css/items.css' %}" />
+  </head>
+  <body>
+    <section class="section-center">
+      <div class="items">
+        <div class="single-item">
+          <input type="checkbox" checked />
+          <p style="text-decoration: line-through">milk</p>
+        </div>
+        <div class="single-item">
+          <input type="checkbox" checked />
+          <p style="text-decoration: line-through">bread</p>
+        </div>
+        <div class="single-item">
+          <input type="checkbox" />
+          <p>eggs</p>
+        </div>
+        <div class="single-item">
+          <input type="checkbox" />
+          <p>butter</p>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>
