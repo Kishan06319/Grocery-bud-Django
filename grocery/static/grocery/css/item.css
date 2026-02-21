@@ -1,12 +1,5 @@
-/* items.css */
 .items {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.items p {
-  margin: 0;
-  font-size: 1rem;
-  color: #333;
+  margin-top: 2rem;
+  display: grid;
+  row-gap: 1rem;
 }
