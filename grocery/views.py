@@ -13,3 +13,7 @@ def delete_item(request, item_id):
         item = get_object_or_404(GroceryItem, id=item_id)
         item.delete()
     return redirect('grocery:index')
+
+def index(request):
+    items = GroceryItem.objects.all()
+    return render(request, 'grocery/index.html', {'items': items})
