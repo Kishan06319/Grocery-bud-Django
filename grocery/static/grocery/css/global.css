@@ -1,0 +1,23 @@
+/* global.css */
+body {
+  font-family: Arial, sans-serif;
+  background: #f1f5f9;
+  margin: 0;
+  padding: 0;
+}
+
+.section-center {
+  width: 90vw;
+  max-width: 600px;
+  margin: 5rem auto;
+  background: #fff;
+  border-radius: 8px;
+  padding: 2rem;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.btn {
+  cursor: pointer;
+  border: none;
+  background: transparent;
+}

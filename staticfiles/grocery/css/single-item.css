@@ -1,0 +1,28 @@
+/* single-item.css */
+.single-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #f9fafb;
+  padding: 0.75rem 1rem;
+  border-radius: 6px;
+  transition: background 0.3s ease;
+}
+
+.single-item:hover {
+  background: #e5e7eb;
+}
+
+.single-item input[type="checkbox"] {
+  margin-right: 1rem;
+}
+
+.remove-btn {
+  color: #dc2626;
+  font-size: 1.2rem;
+  transition: color 0.3s ease;
+}
+
+.remove-btn:hover {
+  color: #b91c1c;
+}
