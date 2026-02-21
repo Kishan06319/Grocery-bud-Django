@@ -25,8 +25,11 @@ SECRET_KEY = 'django-insecure-ym&%d!kx(8qkn4@+rdmea9x6byssbg2f7q@%65ryrd0&is1r1t
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'localhost',
+    '127.0.0.1',
+    'grocery-bud-django.onrender.com',  # your Render domain
+]
 
 
 # Application definition
@@ -78,14 +81,25 @@ WSGI_APPLICATION = 'djangocrud.wsgi.application'
 
 import dj_database_url
 
+
+BASE_DIR = Path(__file__).resolve().parent.parent
+
+# Default: SQLite for local development
 DATABASES = {
-    'default': dj_database_url.config(
-        default=os.environ.get('DATABASE_URL'),
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}
+
+# If DATABASE_URL is set (Render), override with Postgres
+DATABASE_URL = os.environ.get('DATABASE_URL')
+if DATABASE_URL:
+    DATABASES['default'] = dj_database_url.config(
+        default=DATABASE_URL,
         conn_max_age=600,
         ssl_require=True
     )
-}
-
 
 
 # Password validation
