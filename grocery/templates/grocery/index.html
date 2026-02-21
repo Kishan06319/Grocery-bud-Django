@@ -14,12 +14,39 @@
       <div class="items">
         {% for item in items %}
         <div class="single-item">
-          <input type="checkbox" {% if item.completed %}checked{% endif %} />
+          <!-- Toggle Completed -->
+          <form method="POST" action="{% url 'grocery:toggle' item.id %}">
+            {% csrf_token %}
+            <input
+              type="checkbox"
+              {%
+              if
+              item.completed
+              %}checked{%
+              endif
+              %}
+              onchange="this.form.submit()"
+            />
+          </form>
+
+          <!-- Item Name -->
           <p
             style="text-decoration: {% if item.completed %}line-through{% else %}none{% endif %}"
           >
             {{ item.name }}
           </p>
+
+          <!-- Delete Button -->
+          <form
+            method="POST"
+            action="{% url 'grocery:delete' item.id %}"
+            style="display: inline"
+          >
+            {% csrf_token %}
+            <button type="submit" class="btn icon-btn remove-btn">
+              <i class="fa-regular fa-trash-can"></i>
+            </button>
+          </form>
         </div>
         {% empty %}
         <p style="text-align: center; color: #888">
