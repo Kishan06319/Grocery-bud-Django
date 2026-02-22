@@ -2,14 +2,16 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from .models import GroceryItem
 
-
 def index(request):
-    items = GroceryItem.objects.all()
+    if not request.session.session_key:
+        request.session.create()
+
+    items = GroceryItem.objects.filter(session_key=request.session.session_key)
+
     edit_id = request.GET.get('edit')
     edit_item = None
-
     if edit_id:
-        edit_item = get_object_or_404(GroceryItem, id=edit_id)
+        edit_item = get_object_or_404(GroceryItem, id=edit_id, session_key=request.session.session_key)
 
     context = {
         'items': items,
@@ -20,13 +22,15 @@ def index(request):
 
 def add_item(request):
     if request.method == 'POST':
-        name = request.POST.get('name', '').strip()
+        if not request.session.session_key:
+            request.session.create()
 
+        name = request.POST.get('name', '').strip()
         if not name:
             messages.error(request, 'Please provide a value')
             return redirect('grocery:index')
 
-        GroceryItem.objects.create(name=name)
+        GroceryItem.objects.create(session_key=request.session.session_key, name=name)
         messages.success(request, 'Item Added Successfully!')
 
     return redirect('grocery:index')
@@ -34,19 +38,17 @@ def add_item(request):
 
 def toggle_completed(request, item_id):
     if request.method == 'POST':
-        item = get_object_or_404(GroceryItem, id=item_id)
+        item = get_object_or_404(GroceryItem, id=item_id, session_key=request.session.session_key)
         item.completed = not item.completed
         item.save()
-
     return redirect('grocery:index')
 
 
 def delete_item(request, item_id):
     if request.method == 'POST':
-        item = get_object_or_404(GroceryItem, id=item_id)
+        item = get_object_or_404(GroceryItem, id=item_id, session_key=request.session.session_key)
         item.delete()
         messages.success(request, 'Item Deleted Successfully!')
-
     return redirect('grocery:index')
 
 
@@ -56,7 +58,7 @@ def edit_item(request, item_id):
 
 def update_item(request, item_id):
     if request.method == 'POST':
-        item = get_object_or_404(GroceryItem, id=item_id)
+        item = get_object_or_404(GroceryItem, id=item_id, session_key=request.session.session_key)
         name = request.POST.get('name', '').strip()
 
         if not name:
